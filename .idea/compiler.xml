@@ -6,12 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="springboot-quickstart" />
         <module name="springboot-profile" />
         <module name="springboot-base-config" />
-        <module name="springboot-test" />
         <module name="springboot-read-data" />
         <module name="springboot-maven-and-boot-profile" />
+        <module name="springboot-quickstart" />
+        <module name="springboot-mybatis" />
+        <module name="springboot-test" />
       </profile>
     </annotationProcessing>
   </component>
@@ -19,6 +20,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="springboot-base-config" options="-parameters" />
       <module name="springboot-maven-and-boot-profile" options="-parameters" />
+      <module name="springboot-mybatis" options="-parameters" />
       <module name="springboot-profile" options="-parameters" />
       <module name="springboot-quickstart" options="-parameters" />
       <module name="springboot-read-data" options="-parameters" />
