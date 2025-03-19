@@ -10,12 +10,14 @@
         <module name="springboot-profile" />
         <module name="springboot-base-config" />
         <module name="springboot-read-data" />
+        <module name="springboot-maven-and-boot-profile" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="springboot-base-config" options="-parameters" />
+      <module name="springboot-maven-and-boot-profile" options="-parameters" />
       <module name="springboot-profile" options="-parameters" />
       <module name="springboot-quickstart" options="-parameters" />
       <module name="springboot-read-data" options="-parameters" />
