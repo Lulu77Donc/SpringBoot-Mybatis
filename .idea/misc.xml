@@ -7,6 +7,7 @@
         <option value="$PROJECT_DIR$/springboot-quickstart/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-base-config/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-read-data/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-profile/pom.xml" />
       </list>
     </option>
   </component>
