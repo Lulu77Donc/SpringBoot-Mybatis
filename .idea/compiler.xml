@@ -9,6 +9,7 @@
         <module name="springboot-quickstart" />
         <module name="springboot-profile" />
         <module name="springboot-base-config" />
+        <module name="springboot-test" />
         <module name="springboot-read-data" />
         <module name="springboot-maven-and-boot-profile" />
       </profile>
@@ -21,6 +22,7 @@
       <module name="springboot-profile" options="-parameters" />
       <module name="springboot-quickstart" options="-parameters" />
       <module name="springboot-read-data" options="-parameters" />
+      <module name="springboot-test" options="-parameters" />
     </option>
   </component>
 </project>
