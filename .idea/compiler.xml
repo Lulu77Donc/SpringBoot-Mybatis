@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="springboot-ssm" />
         <module name="springboot-profile" />
+        <module name="mybatisplus-dql" />
         <module name="springboot-base-config" />
         <module name="mybatisplus-quickstart" />
         <module name="springboot-read-data" />
@@ -20,6 +21,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="mybatisplus-dql" options="-parameters" />
       <module name="mybatisplus-quickstart" options="-parameters" />
       <module name="springboot-base-config" options="-parameters" />
       <module name="springboot-maven-and-boot-profile" options="-parameters" />

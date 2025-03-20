@@ -51,3 +51,80 @@ public class MpConfig {
 }
 ```
 注意一点，如果你的mybatis版本过高可能没有这个Interceptor类，我们还要降低版本，这里我降到3.5.4.1才可以
+
+### 如何使我们打印出的信息变得简介
+我们在启动springboot和mybatisplus的时候，往往出现很多INFO信息，这些信息对我们来说没有用，那么如何去除呢？
+首先在resources中创建一个xml文件，这里我叫logback.xml，然后除第一行以外其他都删掉，配成这样：
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+</configuration>
+```
+就可以看到没有INFO那些多余的信息了，变得简洁，那么如何更近一步，把mybatisplus和springboot也隐藏呢
+在yml配置文件中加上下面配置就可以了：
+```
+mybatis-plus:
+  global-config:
+    banner: false
+```
+```
+server:
+  port: 80
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mybatisplus_db
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+  main:
+    banner-mode: off
+```
+spring的也加上
+
+### mp条件查询
+先来讲一个简单的例子，我们在使用basemapper给我们的方法--selectList()的时候，里面要传入wrapper，这个wrapper就是自定义对象
+用来放我们的查询条件的
+```
+void testGetAll() {
+        //按条件查询
+        QueryWrapper wrapper = new QueryWrapper<>();
+        wrapper.lt("age",18);
+        List<User> userList = userDao.selectList(wrapper);
+        System.out.println(userList);
+    }
+```
+这里我在测试类里放了一个测试方法，首先new这个wrapper对象，然后设置查询条件，lt指的是小于，第一个参数是列名
+这样设置有个问题，这个age可能会出现错误的情况，因此还有一种方法，用lambda格式来查询
+```
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.lambda().lt(User::getAge,18);
+        List<User> userList = userDao.selectList(wrapper);
+        System.out.println(userList);
+```
+在查询前面加一个lambda，这里要在wrapper对象前加上泛型，后面age用方法引用
+还有更简单的方法
+```
+        LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<User>();
+        lqw.lt(User::getAge,18);
+        List<User> userList = userDao.selectList(lqw);
+        System.out.println(userList);
+```
+
+### 查询投影
+众所周知，我们使用selectList()方法可以查询到所有制，有没有什么办法可以只显示个别字段呢？
+有的兄弟有的
+```
+        LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<User>();
+        lqw.select(User::getId,User::getName,User::getAge);
+        List<User> userList = userDao.selectList(lqw);
+        System.out.println(userList);
+```
+这样我们就可以只显示对应的字段，但只限于lambda格式
+普通的这样写：
+```
+        QueryWrapper queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("id","name","age");
+        List<User> userList = userDao.selectList(queryWrapper);
+        System.out.println(userList);
+```
