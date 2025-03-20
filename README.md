@@ -128,3 +128,19 @@ void testGetAll() {
         List<User> userList = userDao.selectList(queryWrapper);
         System.out.println(userList);
 ```
+
+### id生成策略
+我们是可以通过实体类的属性来控制他的id生成策略的
+用法：在id属性上加上@TableId(type=IdType.xxx),这里xxx对应id生成策略
+AUTO 使用数据库id自增控制id生成
+NONE 不设置id生成策略
+INPUT 用户手动输入id
+ASSIGN_ID 雪花算法生成id（兼容数值类型与字符串型）
+ASSIGN_UUID 以uuid生成算法生成id
+也可以在yml文件中加上全局配置：
+```
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+```

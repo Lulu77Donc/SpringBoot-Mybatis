@@ -46,11 +46,33 @@ class MybatisplusDqlApplicationTests {
         List<User> userList = userDao.selectList(queryWrapper);
         System.out.println(userList);*/
         //查询结果包含吗实体类未定义的属性
-        QueryWrapper<User> qm = new QueryWrapper<>();
+       /* QueryWrapper<User> qm = new QueryWrapper<>();
         qm.select("count(*) as nums,tel");//查询不同电话对应数量
         qm.groupBy("tel");
         List<Map<String, Object>> maps = userDao.selectMaps(qm);
-        System.out.println(maps);
+        System.out.println(maps);*/
+
+        //---------------------------------------------------------
+
+        /*LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<User>();
+        //等同于=
+        lqw.eq(User::getName,"jerry").eq(User::getPassword,"jerry");
+        User loginUser = userDao.selectOne(lqw);//如果只查一个数据用selectone即可
+        System.out.println(loginUser);*/
+
+        /*LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<User>();
+        //范围查询 lt（不带等号）   le（带等号） gt ge eq between
+        lqw.between(User::getAge,10,30);
+        List<User> userList = userDao.selectList(lqw);
+        System.out.println(userList);*/
+
+        LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<User>();
+        //模糊匹配 like
+        lqw.like(User::getName,"j");//likeRight指的是j% %在右边。likeLeft同理
+        List<User> userList = userDao.selectList(lqw);
+        System.out.println(userList);
+
+
     }
 
 }
