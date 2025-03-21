@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -72,6 +73,44 @@ class MybatisplusDqlApplicationTests {
         List<User> userList = userDao.selectList(lqw);
         System.out.println(userList);
 
+
+    }
+
+    @Test
+    void testDelete(){
+        List<Long> list = new ArrayList<>();
+        list.add(1L);
+        list.add(2L);
+        userDao.deleteBatchIds(list);
+    }
+
+    @Test
+    void testSelect(){
+        List<Long> list = new ArrayList<>();
+        list.add(1L);
+        list.add(2L);
+        List<User> userList = userDao.selectBatchIds(list);
+        System.out.println(userList);
+    }
+
+    @Test
+    void testUpdate(){
+        /*User user = new User();
+        user.setId(2L);
+        user.setName("Jock666");
+        user.setVersion(1);
+        userDao.updateById(user);*/
+
+        //乐观锁，修改前将version比对
+        //先通过要修改的数据id将当前数据查询出来
+        User user = userDao.selectById(2L);//version = 3
+        User user2 = userDao.selectById(2L);//version = 3
+
+        user2.setName("Jock888");
+        userDao.updateById(user2);//version = 4
+
+        user.setName("Jock888");
+        userDao.updateById(user);//version = 3
 
     }
 
